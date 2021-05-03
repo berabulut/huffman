@@ -28,6 +28,7 @@
 *.so.*
 *.dylib
 
+/bin
 # Executables
 *.exe
 *.out
