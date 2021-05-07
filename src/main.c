@@ -20,7 +20,7 @@ char* getString(char *line,int beginIndex,int endIndex){
 
 int main(){
 
-  IS is = new_inputstruct("test.json");
+  IS is = new_inputstruct(".kilit");
   JRB b,bn;
   b = make_jrb();
   
@@ -41,7 +41,7 @@ int main(){
   		key = getString(is->text1,array[0],array[1]);
   		value = getString(is->text1,array[2],array[3]);
   		
-  		(void) jrb_insert_str(b,strdup(value),new_jval_v(key));
+  		(void) jrb_insert_str(b,strdup(key),new_jval_v(value));
   		
   		
   		//printf("%s - ",key);
@@ -51,6 +51,11 @@ int main(){
 
 	jrb_traverse(bn,b){
 		printf("%s : %s\n",bn->key.s,bn->val.s);
+	}
+
+	bn = jrb_find_str(b, "selam");
+	if (bn != NULL) {
+        printf("%s : %s\n",bn->key.s,bn->val.s);
 	}
 
 
