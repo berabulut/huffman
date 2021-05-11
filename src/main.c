@@ -17,7 +17,8 @@ char* getString(char *line,int beginIndex,int endIndex){
 	return strdup(text);
 }
 
-void ReadDocument(IS is, JRB b,JRB bn, int option){
+void ReadDocument(JRB b,int option){
+	IS is = new_inputstruct(".kilit");
  	while(get_line(is) >= 0){
   		int sayac = 0;
   		char *key,*value;
@@ -39,22 +40,23 @@ void ReadDocument(IS is, JRB b,JRB bn, int option){
 				
 			if(option == 1)
 				(void) jrb_insert_str(b,strdup(value),new_jval_v(key));
-		//printf("%s - ",key);
-  		//printf("%s  \n",value);
 		}
 		
 	}
+	
+  	jettison_inputstruct(is);
 }
 
-void EnCoding(JRB b,JRB bn, IS is1, char *output_name)
+void EnCoding(char* fileName,JRB b,JRB bn)
 {	
 	FILE * fp;
-	fp = fopen (output_name,"w");
+	fp = fopen (fileName,"w");
+	IS is = new_inputstruct(fileName);
 	
-	while(get_line(is1) >= 0){
-		for (int i = 0; i < is1->NF; i++)
+	while(get_line(is) >= 0){
+		for (int i = 0; i < is->NF; i++)
 		{
-			bn = jrb_find_str(b, is1->fields[i]);
+			bn = jrb_find_str(b, is->fields[i]);
 			if (bn != NULL) {
         		fprintf(fp, "%s ",bn->val.s);
 			}
@@ -63,53 +65,52 @@ void EnCoding(JRB b,JRB bn, IS is1, char *output_name)
 	fclose (fp);
 }
 
-void DeCoding(JRB b,JRB bn, IS is2) 
+void DeCoding(char* fileName,JRB b,JRB bn) 
 {
 	FILE * fp;
-	fp = fopen ("decripted","w");
-
+	fp = fopen (fileName,"w");
 	
-	while(get_line(is2) >= 0){
+  	IS is = new_inputstruct(fileName);
+	
+	while(get_line(is) >= 0){
 
-		for (int i = 0; i < is2->NF; i++)
+		for (int i = 0; i < is->NF; i++)
 		{	
 			
-			bn = jrb_find_str(b, is2->fields[i]);
+			bn = jrb_find_str(b, is->fields[i]);
 			if (bn != NULL) {			
         		fprintf(fp, "%s ",bn->val.s);
 			}
 		}
 	}
+	jettison_inputstruct(is); 
 	fclose (fp);
+
 }
+
 
 int main(int argc, char **argv){
   
-	printf("flag , %s\n", argv[1]);
-	printf("in , %s\n", argv[2]);
-	printf("o , %s\n", argv[3]);
+  
+  if (argc != 4) { fprintf(stderr, "usage: printwords filename\n"); exit(1); }
     char *flag = argv[1];
-	char *input_text = argv[2]; 
-	char *output_text = argv[3]; 
+	char *input_fileName = argv[2]; 
+	char *output_fileName = argv[3]; 
 	
-  IS is = new_inputstruct(".kilit");
-  IS is1 = new_inputstruct(input_text);
+  
   JRB b,bn;
   b = make_jrb();
   if(strcmp(flag,"-e") == 0)
   {
-    	ReadDocument(is,b, bn, 0);
-  //	EnCoding(b,bn,is1,output_text);
+    	ReadDocument(b,0);
+  	EnCoding(output_fileName,b,bn);
   }
   else
   {
-  //	ReadDocument(is,b, bn, 1);
- //	DeCoding(b,bn,is1);
+  	ReadDocument(b,1);
+ 	DeCoding(output_fileName,b,bn);
   }
-// ./Test -e ornek_metin2 encripted
-// ./Test -d encripted decripted
-//  jettison_inputstruct(is);
-//  jettison_inputstruct(is1); 
+  
   return 0;
 
 }
