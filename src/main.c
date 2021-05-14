@@ -119,6 +119,10 @@ int main(int argc, char **argv){
   	ReadDocument(b,1);
  	DeCoding(input_fileName,output_fileName,b,bn);
   }
+
+ if(!jrb_empty(b)) { // ağacı siliyoruz
+      jrb_free_tree(b);
+ }
   
   return 0;
 
