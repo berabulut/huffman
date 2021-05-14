@@ -19,6 +19,7 @@ char* getString(char *line,int beginIndex,int endIndex){
 
 void ReadDocument(JRB b,int option){
 	IS is = new_inputstruct(".kilit");
+	if (is == NULL) {     perror("Kilit dosyasi bos!");     exit(1);   }
  	while(get_line(is) >= 0){
   		int sayac = 0;
   		char *key,*value;
