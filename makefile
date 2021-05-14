@@ -1,11 +1,25 @@
-all: compile
+INCLUDE = -I ./include
+CC = gcc
+LIBS = ./lib/libfdr.a
+CFLAGS = $(INCLUDE)
+ALL = proje
 
+all: $(ALL)
 
-compile:
-	gcc -I ./include/ -o ./lib/fields.o -c ./src/fields.c
-	gcc -I ./include/ -o ./lib/jval.o -c ./src/jval.c
-	gcc -I ./include/ -o ./lib/jrb.o -c ./src/jrb.c
-	gcc -I ./include/ -o ./bin/Test ./lib/fields.o ./lib/jval.o ./lib/jrb.o ./src/main.c
+encripted:
+	./kripto -e ornek_metin encripted
 
-run:
-	./bin/Test	
+decripted:
+	./kripto -d ornek_metin decripted
+
+clean:
+	rm -f kripto 
+
+cleanall:clean
+	rm -f .kilit encripted decripted *.txt
+
+run:clean proje encripted decripted
+
+proje:
+	$(CC) $(CFLAGS) -o kripto ./src/main.c $(LIBS)
+	
