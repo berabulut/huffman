@@ -6,11 +6,11 @@ ALL = proje
 
 all: $(ALL)
 
-encripted:
+encrypt:
 	./kripto -e ornek_metin encripted
 
-decripted:
-	./kripto -d ornek_metin decripted
+decrypt:
+	./kripto -d encripted decripted
 
 clean:
 	rm -f kripto 
@@ -18,7 +18,7 @@ clean:
 cleanall:clean
 	rm -f .kilit encripted decripted *.txt
 
-run:clean proje encripted decripted
+run: clean proje encrypt decrypt
 
 proje:
 	$(CC) $(CFLAGS) -o kripto ./src/main.c $(LIBS)

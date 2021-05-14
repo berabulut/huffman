@@ -28,8 +28,13 @@
 *.so.*
 *.dylib
 
+#Binaries etc.
 /bin
 /lib
+decripted
+encripted
+kripto
+
 # Executables
 *.exe
 *.out
