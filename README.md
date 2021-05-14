@@ -6,11 +6,9 @@ Hüseyin Bera Bulut:Proje Sorumlusu
 Ertuğrul Sırma:Encode ve Decode işlemlerinin yapılması
 Muhammed Mustafa Çelik:Deployment Sorumlusu
 Proje Yapılış Aşamaları:
-İlk buluşmamız ..... tarihlerinde oldu ve görev dağılımı yapıldı.
-Bir birimizin yapamadığı kısımlarında fikir alışverişi yapılıp sonuç bulundu.
+Derleme sürecimizde prototip bir makefile üretip,ürettiğimiz makefile 
+ile işimize başladık,proje yöneticimiz olan Hüseyin Bulut ile 
+projedeki diğer üyemiz olan Mert Apa bir araya gelip kilit dosya okuma
+işlemlerimizi hallettikten sonra Ertuğrul Sırma ile encode decode işlemimizi yaptık.Sonrasında Mustafa Çelik adlı üyemiz prototip makefile'ımızı öğretmenimizin istediği gibi bir makefile'a güncelledi.
 
-
-``` 
-	mkdir lib
-	mkdir bin 
-```
+Projemizde çalışmayan hatalı bir yer yoktur.
